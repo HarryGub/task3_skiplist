@@ -27,7 +27,11 @@ OrderedList<Value, Key, Node>::OrderedList()
 //-----------------------------------------------------------------------------
 
 
-    // TODO: !!! Implement destructor correctly !!!
+template <class Value, class Key, class Node>
+OrderedList<Value, Key, Node>::~OrderedList()
+{
+    delete _preHead;
+}
 
 //-----------------------------------------------------------------------------
 
@@ -39,13 +43,10 @@ void OrderedList<Value,Key,Node>::insert(const Value& val, const Key& tkey)
     Node* run = _preHead;
     while (run->next != _preHead)
         run = run->next;
-
-
     Node* tmp = new Node;
     tmp->next = run->next;
     tmp->key = tkey;
     tmp->value = val;
-
     run->next = tmp;
 }
 
@@ -54,13 +55,10 @@ void OrderedList<Value,Key,Node>::insert(const Value& val, const Key& tkey)
 template <class Value, class Key, class Node >
 void OrderedList<Value,Key,Node>::removeNext(Node* nodeBefore)
 {
-    if (nodeBefore == nullptr
-        || nodeBefore->next == nullptr
-        || nodeBefore->next == _preHead)
+    if (nodeBefore == nullptr || nodeBefore->next == nullptr || nodeBefore->next == _preHead)
     {
         return;
     }
-
     Node* tmp = nodeBefore->next;
     nodeBefore->next = tmp->next;
     delete tmp;

@@ -74,11 +74,22 @@ void JournalNetActivity<numLevels>::dumpJournal(std::ostream& out)
 //------------------------------------------------------------------------------
 
 template <int numLevels>
-void JournalNetActivity<numLevels>::outputSuspiciousActivities(
-        const std::string& hostSuspicious,
-        const TimeStamp& timeFrom,
-        const TimeStamp& timeTo,
-        std::ostream& out) const
+void JournalNetActivity<numLevels>::outputSuspiciousActivities(const std::string& hostSuspicious, const TimeStamp& timeFrom, const TimeStamp& timeTo, std::ostream& out) const
 {
-    // TODO: Implement this method!
+    if(timeTo < timeFrom)
+        throw std::invalid_argument("Time is invalid!");
+    NodeSkipList<NetActivity, TimeStamp, numLevels> * susp = _journal.findFirst(timeFrom);
+    if(susp == nullptr)
+    {
+        out << "";
+    }
+    else
+    {
+        while (susp->key <= timeTo && susp != _journal.getPreHead())
+        {
+            if (susp->value.host == hostSuspicious)
+                out << susp->key << " " << susp->value.user << " " << susp->value.host << "\n";
+            susp = susp->next;
+        }
+    }
 }

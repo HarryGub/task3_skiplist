@@ -60,10 +60,7 @@ public:
     /// Empty output is "" without new line. 
     /// 
     /// Net Activities with equal TimeStamps should go in the same order as they were in the journal.
-    void outputSuspiciousActivities(const std::string& site,
-                                    const TimeStamp& from,
-                                    const TimeStamp& to,
-                                    std::ostream& out) const;
+    void outputSuspiciousActivities(const std::string& site, const TimeStamp& from, const TimeStamp& to, std::ostream& out) const;
 
 protected:
     /// Log storage.

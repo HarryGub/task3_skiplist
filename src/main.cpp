@@ -81,17 +81,17 @@ int main (int /*argc*/, char* /*argv*/[])
     std::cout << "Hello World!\n\n";
 
     TickTack tmr;
-
     // Test SkipList over integers
     typedef SkipList<int,int,15> TypeSkipList;
     typedef typename TypeSkipList::Node TypeSkipNode;
-
     TypeSkipList list;
     tmr.tick();
     int i = 0;
     for (i = 0; i < 200 * 1000; ++i)
+    {
+//        std::cout<< i << "\n";
         list.insert(i, i);
-
+    }
     tmr.tack("SkipList over integers creation");
 
     TypeSkipNode* node = nullptr;
@@ -101,38 +101,37 @@ int main (int /*argc*/, char* /*argv*/[])
     node = list.OrderedList <int,int,TypeSkipNode >::findFirst(i - 5);
     std::cout << "Element found:" << node->value << std::endl;
     tmr.tack("OrderedList over integers searching");
-
     tmr.tick();
     node = list.findFirst(i - 5);
     std::cout << "Element found:" << node->value << std::endl;
     tmr.tack("SkipList over integers searching");
     // End of: Test SkipList over integers
 
-    try{
+    try
+    {
         // Test #1
-        JournalNetActivity<5> journal1;
+        JournalNetActivity<150> journal1;
         journal1.parseLog(LOG_FOLDER + "test1.log");
         testJournal(journal1, "e-maxx.ru", TimeStamp(2015,6,10,10,33,1), TimeStamp(2015,6,10,10,33,4));
 
         // Test #2
-        JournalNetActivity<5> journal2;
+        JournalNetActivity<150> journal2;
         journal2.parseLog(LOG_FOLDER + "test2.log");
         testJournal(journal2, "verisicretproxi.com", TimeStamp(2015,6,10,10,33,54), TimeStamp(2015,6,10,10,33,54));
 
-//        // Test #3
-//        JournalNetActivity<5> journal3;
-//        tmr.tick();
-//        journal3.parseLog(LOG_FOLDER + "test3.log");
-//        tmr.tack("Parsing test3.log");
-//        testJournal(journal3, "verisicretproxi.com", TimeStamp(2015,6,10,12,27,45), TimeStamp(2015,6,10,12,27,59));
+        // Test #3
+        JournalNetActivity<150> journal3;
+        tmr.tick();
+        journal3.parseLog(LOG_FOLDER + "test3.log");
+        tmr.tack("Parsing test3.log");
+        testJournal(journal3, "verisicretproxi.com", TimeStamp(2015,6,10,12,27,45), TimeStamp(2015,6,10,12,27,59));
 
-//        // Test #4
-//        JournalNetActivity<5> journal4;
-//        tmr.tick();
-//        journal4.parseLog(LOG_FOLDER + "test4.log");
-//        tmr.tack("Parsing test4.log:");
-//        testJournal(journal4, "verisicretproxi.com", TimeStamp(2015,6,10,22,30,20), TimeStamp(2015,6,10,22,30,50));
-
+        // Test #4
+        JournalNetActivity<150> journal4;
+        tmr.tick();
+        journal4.parseLog(LOG_FOLDER + "test4.log");
+        tmr.tack("Parsing test4.log:");
+        testJournal(journal4, "verisicretproxi.com", TimeStamp(2015,6,10,22,30,20), TimeStamp(2015,6,10,22,30,50));
     }
     catch(std::exception &e)
     {

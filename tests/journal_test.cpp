@@ -77,8 +77,3 @@ TEST(Journal, log1_emaxx)
                                        output);
     EXPECT_EQ(output.str(), "");
 }
-
-
-
-
-
